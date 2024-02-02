@@ -1,13 +1,14 @@
 version: '3'
 services:
   magic:
+    container_name: 'Mage1'
     image: mageai/mageai:latest
     command: mage start ${PROJECT_NAME}
     env_file:
       - .env
     build:
       context: .
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     environment:
       USER_CODE_PATH: /home/src/${PROJECT_NAME}
       POSTGRES_DBNAME: ${POSTGRES_DBNAME}
@@ -28,6 +29,8 @@ services:
     restart: on-failure
     container_name: ${PROJECT_NAME}-postgres
     env_file:
+      .env
+    environment:
       POSTGRES_DB: ${POSTGRES_DBNAME}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
